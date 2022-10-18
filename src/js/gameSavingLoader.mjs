@@ -1,10 +1,15 @@
 import json from './parser.mjs';
 import read from './reader.mjs';
 
-class gameSavingLoader{
+ class gameSavingLoader{
     static load(){
-        return new Promise((resolve, reject)=>{
-            resolve(json(read()))
+        let readValue = new Promise((resolve, reject) => {
+            resolve(read())
+        });
+        return readValue.then((result) =>{
+            return new Promise((resolve, reject) =>{
+                resolve(json(result))
+            })
         })      
     }
 }
